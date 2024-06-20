@@ -1,0 +1,74 @@
+1
+00:00:00,000 --> 00:00:06,000
+显示
+Showing
+
+2
+00:00:06,000 --> 00:00:10,000
+显示加载指示器非常简单。所以这个查询对象
+a loading indicator is pretty straight forward. So this query object
+
+3
+00:00:10,000 --> 00:00:14,000
+有另一个有用的属性，就是正在加载。
+has another useful property that is is loading.
+
+4
+00:00:14,000 --> 00:00:18,000
+我们可以获取它，然后在这里我们可以说
+We can grab that and then here we can say
+
+5
+00:00:18,000 --> 00:00:22,000
+如果正在加载，我们可以返回一个
+if is loading we can return a
+
+6
+00:00:22,000 --> 00:00:26,000
+段落并显示“加载中”。我们还可以渲染一个旋转器。
+paragraph and say loading. We can also render a spinner.
+
+7
+00:00:26,000 --> 00:00:30,000
+现在让我们测试我们的应用程序。所以回到浏览器，刷新，你可以
+Now let's test our application. So back in the browser, refresh, you can
+
+8
+00:00:30,000 --> 00:00:34,000
+看到“加载中”出现得非常快。我们可以模拟一个慢速连接
+see loading appearing pretty quickly. We can simulate a slow connection
+
+9
+00:00:34,000 --> 00:00:38,000
+通过进入网络选项卡并应用一个
+by going to the network tab and applying a
+
+10
+00:00:38,000 --> 00:00:42,000
+限制。所以在这里我们可以模拟一个快速的3G连接。
+throttling. So here we can simulate a fast 3G connection.
+
+11
+00:00:42,000 --> 00:00:46,000
+现在让我们刷新。
+Now let's refresh.
+
+12
+00:00:46,000 --> 00:00:50,000
+很快就会发生。
+It's going to happen in a second.
+
+13
+00:00:50,000 --> 00:00:54,000
+好的，这里是加载中，然后我们得到了数据。这就是
+Alright, here's loading and then we get the data. So this is the beauty of
+
+14
+00:00:54,000 --> 00:00:58,000
+react query的美丽之处。我们不再需要为我们的
+react query. We no longer have to declare separate state variables for our
+
+15
+00:00:58,000 --> 00:01:02,000
+数据、错误和加载状态单独声明状态变量。一切都被很好地处理了。
+data, error and the loading state. Everything is well taken care of.

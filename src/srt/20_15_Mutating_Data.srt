@@ -1,0 +1,580 @@
+1
+00:00:00,000 --> 00:00:04,000
+music playing
+
+2
+00:00:04,000 --> 00:00:08,000
+So we have covered a range of topics
+
+3
+00:00:08,000 --> 00:00:12,000
+around queries, now let's see how we can mutate data. So we're
+
+4
+00:00:12,000 --> 00:00:16,000
+going to add a form for adding a new to do to our list.
+
+5
+00:00:16,000 --> 00:00:20,000
+So back to our project, here in the react query folder you can find
+
+6
+00:00:20,000 --> 00:00:24,000
+a component called to do form. I already included this
+
+7
+00:00:24,000 --> 00:00:28,000
+in the starter project that I gave you at the beginning of the course. Now
+
+8
+00:00:28,000 --> 00:00:32,000
+in this component we have a very simple form with an input
+
+9
+00:00:32,000 --> 00:00:36,000
+and a button. Now as you can see we're using the refoke
+
+10
+00:00:36,000 --> 00:00:40,000
+to get access to the value in this input field. Nothing else is going on here,
+
+11
+00:00:40,000 --> 00:00:44,000
+very simple. Now we need to add this component along with our to do list
+
+12
+00:00:44,000 --> 00:00:48,000
+in our app component. So let's go to the app component,
+
+13
+00:00:48,000 --> 00:00:52,000
+first we add a fragment, inside the fragment
+
+14
+00:00:52,000 --> 00:00:56,000
+we add a to do form, followed by a
+
+15
+00:00:56,000 --> 00:01:00,000
+to do list. Okay, now let's see what we
+
+16
+00:01:00,000 --> 00:01:04,000
+get. So here's what we get, now our form currently doesn't have any
+
+17
+00:01:04,000 --> 00:01:08,000
+functionality, so the next step is to handle form submission.
+
+18
+00:01:08,000 --> 00:01:12,000
+So back to our form, here we handle the submit
+
+19
+00:01:12,000 --> 00:01:16,000
+event, we pass a function that takes an event, now
+
+20
+00:01:16,000 --> 00:01:20,000
+just like always, first we call prevent default,
+
+21
+00:01:20,000 --> 00:01:24,000
+to prevent the form from being posted to the server, now you're ready for
+
+22
+00:01:24,000 --> 00:01:28,000
+mutating data. To do that we should use the mutation hook in
+
+23
+00:01:28,000 --> 00:01:32,000
+react query. So up here we call use
+
+24
+00:01:32,000 --> 00:01:36,000
+mutation, this function is defined in tan stack slash
+
+25
+00:01:36,000 --> 00:01:40,000
+react query, just like the query hook. So we call this hook
+
+26
+00:01:40,000 --> 00:01:44,000
+and give it an object. Now our queries take a query function
+
+27
+00:01:44,000 --> 00:01:48,000
+but our mutations take a mutation function. We
+
+28
+00:01:48,000 --> 00:01:52,000
+set this to a function that takes a to do object of type
+
+29
+00:01:52,000 --> 00:01:56,000
+to do. Now here we need to get access to the to do interface that we defined
+
+30
+00:01:56,000 --> 00:02:00,000
+earlier. Currently it's not exported, that is why we cannot access it.
+
+31
+00:02:00,000 --> 00:02:04,000
+So let's go to use to dos dot yes,
+
+32
+00:02:04,000 --> 00:02:08,000
+and export this interface up here.
+
+33
+00:02:08,000 --> 00:02:12,000
+Good, now back to our form, let's import the
+
+34
+00:02:12,000 --> 00:02:16,000
+to do interface, now we should use axios to
+
+35
+00:02:16,000 --> 00:02:20,000
+send a post request to the server. So let's import it and call
+
+36
+00:02:20,000 --> 00:02:24,000
+post, okay we need the url, so let's go back to our hook
+
+37
+00:02:24,000 --> 00:02:28,000
+and grab this url from here.
+
+38
+00:02:28,000 --> 00:02:32,000
+We paste it and as a
+
+39
+00:02:32,000 --> 00:02:36,000
+second argument we pass the to do object that we receive here.
+
+40
+00:02:36,000 --> 00:02:40,000
+And just like before we call then
+
+41
+00:02:40,000 --> 00:02:44,000
+to get access to response dot data. Okay,
+
+42
+00:02:44,000 --> 00:02:48,000
+so we call the mutation hook and get a mutation object,
+
+43
+00:02:48,000 --> 00:02:52,000
+we can call that add to do. Okay, now
+
+44
+00:02:52,000 --> 00:02:56,000
+let's add a semicolon here. Now back to our form
+
+45
+00:02:56,000 --> 00:03:00,000
+submission, here we call add to do dot
+
+46
+00:03:00,000 --> 00:03:04,000
+mutate, so all mutation objects have a mutate method for mutating
+
+47
+00:03:04,000 --> 00:03:08,000
+data. When we call this react query will send our data to
+
+48
+00:03:08,000 --> 00:03:12,000
+the backend using our mutation function.
+
+49
+00:03:12,000 --> 00:03:16,000
+So here we should pass a to do object, and this to do
+
+50
+00:03:16,000 --> 00:03:20,000
+object will be the one that will be sent to this mutation function.
+
+51
+00:03:20,000 --> 00:03:24,000
+Okay, so here we should set a few properties, we should
+
+52
+00:03:24,000 --> 00:03:28,000
+set the id to 0 because currently we don't have an id, this is generated
+
+53
+00:03:28,000 --> 00:03:32,000
+on the server. Next we set the title to
+
+54
+00:03:32,000 --> 00:03:36,000
+ref dot current dot value, this is the value in the input field.
+
+55
+00:03:36,000 --> 00:03:40,000
+Next we set completed to false,
+
+56
+00:03:40,000 --> 00:03:44,000
+and user id to, let's hard code the value of 1.
+
+57
+00:03:44,000 --> 00:03:48,000
+Not the best way to implement this, but for now we just want to focus on
+
+58
+00:03:48,000 --> 00:03:52,000
+mutating data, not a full flash application. Okay,
+
+59
+00:03:52,000 --> 00:03:56,000
+now here we have a compilation error because ref dot current
+
+60
+00:03:56,000 --> 00:04:00,000
+can be null. So here we can use optional chaining,
+
+61
+00:04:00,000 --> 00:04:04,000
+but now we have a different error saying type undefined
+
+62
+00:04:04,000 --> 00:04:08,000
+is not assignable to type string. So because we are using optional
+
+63
+00:04:08,000 --> 00:04:12,000
+chaining here, if the value of this expression is null,
+
+64
+00:04:12,000 --> 00:04:16,000
+the value of the entire expression will be undefined. So here we should
+
+65
+00:04:16,000 --> 00:04:20,000
+check if ref dot current exists,
+
+66
+00:04:20,000 --> 00:04:24,000
+and ref dot current dot value is truthy,
+
+67
+00:04:24,000 --> 00:04:28,000
+then we'll mutate data. So we want to make sure that
+
+68
+00:04:28,000 --> 00:04:32,000
+the user types a value in the input field before we send a post request
+
+69
+00:04:32,000 --> 00:04:36,000
+to the backend. Okay, now let's test our implementation. So, back to
+
+70
+00:04:36,000 --> 00:04:40,000
+the browser, if we post a form without supplying a value,
+
+71
+00:04:40,000 --> 00:04:44,000
+nothing happens. We can verify it by opening Chrome DevTools,
+
+72
+00:04:44,000 --> 00:04:48,000
+here in the network tab, look, we don't have a post request to our backend,
+
+73
+00:04:48,000 --> 00:04:52,000
+we only have a get request for fetching the to do's. So,
+
+74
+00:04:52,000 --> 00:04:56,000
+let's type a value and then post the form,
+
+75
+00:04:56,000 --> 00:05:00,000
+now back to the network tab, we have an additional get request,
+
+76
+00:05:00,000 --> 00:05:04,000
+this is the result of auto-fetching on window focus, we talked about this earlier
+
+77
+00:05:04,000 --> 00:05:08,000
+in the section, remember? Now, after that we have a post request,
+
+78
+00:05:08,000 --> 00:05:12,000
+which is successful, let's inspect it, so this is what we get from the server,
+
+79
+00:05:12,000 --> 00:05:16,000
+the server generated a to do with the ID of 201.
+
+80
+00:05:16,000 --> 00:05:20,000
+Now the last step is to add this to our list.
+
+81
+00:05:20,000 --> 00:05:24,000
+So, back to our mutation, in this object we can add
+
+82
+00:05:24,000 --> 00:05:28,000
+one or more callbacks, here we have unsuccess which is called if
+
+83
+00:05:28,000 --> 00:05:32,000
+everything goes well, we also have unerror, when something goes wrong,
+
+84
+00:05:32,000 --> 00:05:36,000
+this is an opportunity for us to show something like a toast notification,
+
+85
+00:05:36,000 --> 00:05:40,000
+we also have unsettled which gets called whether the request
+
+86
+00:05:40,000 --> 00:05:44,000
+is successful or not, okay? Now here we should handle unsuccess,
+
+87
+00:05:44,000 --> 00:05:48,000
+and set this to a function with one or more parameters,
+
+88
+00:05:48,000 --> 00:05:52,000
+the first parameter is called data in react query, but we can
+
+89
+00:05:52,000 --> 00:05:56,000
+call it anything, this is the object that we get from the backend, so we can
+
+90
+00:05:56,000 --> 00:06:00,000
+call it saved to do. Now look at the type of this parameter,
+
+91
+00:06:00,000 --> 00:06:04,000
+react query doesn't know the type of this parameter because we didn't specify,
+
+92
+00:06:04,000 --> 00:06:08,000
+so when sending a post request we should provide a generic type
+
+93
+00:06:08,000 --> 00:06:12,000
+argument, we say that we're going to send a to do object
+
+94
+00:06:12,000 --> 00:06:16,000
+to the server, with that if we type a comma here
+
+95
+00:06:16,000 --> 00:06:20,000
+you can see that the data that we get from the server is a to do object.
+
+96
+00:06:20,000 --> 00:06:24,000
+Now the second parameter is called variables, the name is a little bit misleading
+
+97
+00:06:24,000 --> 00:06:28,000
+but this is the input, this is the object that we send to the server,
+
+98
+00:06:28,000 --> 00:06:32,000
+so we can call that new to do, that is more clear.
+
+99
+00:06:32,000 --> 00:06:36,000
+Now, in this call back you can do a console.log
+
+100
+00:06:36,000 --> 00:06:40,000
+and look at the save to do to make sure everything is working,
+
+101
+00:06:40,000 --> 00:06:44,000
+so back to the browser, let's add a new to do,
+
+102
+00:06:44,000 --> 00:06:48,000
+and then look at the console tab, so this is the object that we get from the server.
+
+103
+00:06:48,000 --> 00:06:52,000
+Now here we have two options for updating the list,
+
+104
+00:06:52,000 --> 00:06:56,000
+the first approach is invalidating
+
+105
+00:06:56,000 --> 00:07:00,000
+the cache, so we can tell react query that what we have in the cache
+
+106
+00:07:00,000 --> 00:07:04,000
+is invalid, so then react query will refetch all the data
+
+107
+00:07:04,000 --> 00:07:08,000
+from the backend, now unfortunately this doesn't work with
+
+108
+00:07:08,000 --> 00:07:12,000
+json placeholder, because the object that we send to the backend is not really saved,
+
+109
+00:07:12,000 --> 00:07:16,000
+this is a fake API, so if we
+
+110
+00:07:16,000 --> 00:07:20,000
+refresh the to do's we'll not see the new to do that we just created,
+
+111
+00:07:20,000 --> 00:07:24,000
+but let me show you how we can invalidate the cache regardless.
+
+112
+00:07:24,000 --> 00:07:28,000
+To do that we need to get access to our query client, the query client
+
+113
+00:07:28,000 --> 00:07:32,000
+that we created at the beginning of this section, here in the main file,
+
+114
+00:07:32,000 --> 00:07:36,000
+we want to get access to this in our to do form,
+
+115
+00:07:36,000 --> 00:07:40,000
+to do that we use a different hook called use
+
+116
+00:07:40,000 --> 00:07:44,000
+query client, this hook is also defined in the
+
+117
+00:07:44,000 --> 00:07:48,000
+same module, so we call this hook and get our query
+
+118
+00:07:48,000 --> 00:07:52,000
+client,
+
+119
+00:07:52,000 --> 00:07:56,000
+now, here in this call back we call query client
+
+120
+00:07:56,000 --> 00:08:00,000
+that invalidate queries and give it an object,
+
+121
+00:08:00,000 --> 00:08:04,000
+and this object we set query key to
+
+122
+00:08:04,000 --> 00:08:08,000
+to do's, this will invalidate all queries whose key
+
+123
+00:08:08,000 --> 00:08:12,000
+starts with to do, again this doesn't work with json placeholder,
+
+124
+00:08:12,000 --> 00:08:16,000
+so I'm going to show you a different approach, let me comment this out,
+
+125
+00:08:16,000 --> 00:08:20,000
+now, what is the second approach, that involves
+
+126
+00:08:20,000 --> 00:08:24,000
+updating the data in the cache directly,
+
+127
+00:08:24,000 --> 00:08:28,000
+to do that we call query client that
+
+128
+00:08:28,000 --> 00:08:32,000
+set query data, as the first argument we pass
+
+129
+00:08:32,000 --> 00:08:36,000
+our query key which is to do's, and as the second argument
+
+130
+00:08:36,000 --> 00:08:40,000
+we pass an updater function, now as you can see
+
+131
+00:08:40,000 --> 00:08:44,000
+the type of this function is unknown because react query doesn't know
+
+132
+00:08:44,000 --> 00:08:48,000
+what kind of data we want to update, it doesn't know are we updating to do's,
+
+133
+00:08:48,000 --> 00:08:52,000
+posts or what, so here we need to use a generic type argument
+
+134
+00:08:52,000 --> 00:08:56,000
+that is to do array, now you can see updater
+
+135
+00:08:56,000 --> 00:09:00,000
+is a function that takes an array of to do's, so we pass
+
+136
+00:09:00,000 --> 00:09:04,000
+a function that takes an array of to do's and returns
+
+137
+00:09:04,000 --> 00:09:08,000
+an array of to do's, so now we should update the data the same way
+
+138
+00:09:08,000 --> 00:09:12,000
+we update data in react applications in an immutable way,
+
+139
+00:09:12,000 --> 00:09:16,000
+so we return a new array, first we add the save to do,
+
+140
+00:09:16,000 --> 00:09:20,000
+and then we spread the existing to do's,
+
+141
+00:09:20,000 --> 00:09:24,000
+now here we get a compilation error because to do's may be
+
+142
+00:09:24,000 --> 00:09:28,000
+undefined, to solve this we need to wrap this in parenthesis
+
+143
+00:09:28,000 --> 00:09:32,000
+and say to do's or an empty array,
+
+144
+00:09:32,000 --> 00:09:36,000
+let's test our implementation, so back in the browser, let's
+
+145
+00:09:36,000 --> 00:09:40,000
+add a new to do, there you go.
+

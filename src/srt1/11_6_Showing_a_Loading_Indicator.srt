@@ -1,0 +1,60 @@
+1
+00:00:00,000 --> 00:00:06,000
+Showing
+
+2
+00:00:06,000 --> 00:00:10,000
+a loading indicator is pretty straight forward. So this query object
+
+3
+00:00:10,000 --> 00:00:14,000
+has another useful property that is is loading.
+
+4
+00:00:14,000 --> 00:00:18,000
+We can grab that and then here we can say
+
+5
+00:00:18,000 --> 00:00:22,000
+if is loading we can return a
+
+6
+00:00:22,000 --> 00:00:26,000
+paragraph and say loading. We can also render a spinner.
+
+7
+00:00:26,000 --> 00:00:30,000
+Now let's test our application. So back in the browser, refresh, you can
+
+8
+00:00:30,000 --> 00:00:34,000
+see loading appearing pretty quickly. We can simulate a slow connection
+
+9
+00:00:34,000 --> 00:00:38,000
+by going to the network tab and applying a
+
+10
+00:00:38,000 --> 00:00:42,000
+throttling. So here we can simulate a fast 3G connection.
+
+11
+00:00:42,000 --> 00:00:46,000
+Now let's refresh.
+
+12
+00:00:46,000 --> 00:00:50,000
+It's going to happen in a second.
+
+13
+00:00:50,000 --> 00:00:54,000
+Alright, here's loading and then we get the data. So this is the beauty of
+
+14
+00:00:54,000 --> 00:00:58,000
+react query. We no longer have to declare separate state variables for our
+
+15
+00:00:58,000 --> 00:01:02,000
+data, error and the loading state. Everything is well taken care of.
+

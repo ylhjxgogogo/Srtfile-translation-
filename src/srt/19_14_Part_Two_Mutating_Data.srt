@@ -1,0 +1,32 @@
+1
+00:00:00,000 --> 00:00:04,600
+Alright, we just wrapped up the first part of this section.
+
+2
+00:00:04,600 --> 00:00:09,960
+In the next 45 minutes session, we'll be covering a whole bunch of cool topics including creating
+
+3
+00:00:09,960 --> 00:00:16,160
+mutations, handling mutation errors, implementing optimistic updates, creating custom mutation
+
+4
+00:00:16,160 --> 00:00:21,660
+hooks, and building reusable services for querying and mutating data.
+
+5
+00:00:21,660 --> 00:00:24,120
+But before we jump into all that, let's take a quick break.
+
+6
+00:00:24,120 --> 00:00:29,280
+You've been doing great so far, so take a well-deserved 10-15 minute break.
+
+7
+00:00:29,520 --> 00:00:32,960
+Go for a walk, grab a coffee, or whatever you like.
+
+8
+00:00:32,960 --> 00:00:36,880
+Once you feel refreshed and energized, come back and let's continue this journey.
+

@@ -1,0 +1,148 @@
+1
+00:00:00,000 --> 00:00:06,000
+So,
+
+2
+00:00:06,000 --> 00:00:10,000
+here's our current implementation. Now there is a problem here, can you spot it?
+
+3
+00:00:10,000 --> 00:00:14,000
+Pause the video and think about it for a few seconds.
+
+4
+00:00:14,000 --> 00:00:18,000
+Here's the answer, we don't have separation of concerns,
+
+5
+00:00:18,000 --> 00:00:22,000
+because our querying logic has leaked inside our component.
+
+6
+00:00:22,000 --> 00:00:26,000
+Now to separate these concerns, we should extract the querying logic
+
+7
+00:00:26,000 --> 00:00:30,000
+into a separate reusable hook. So, back to our project,
+
+8
+00:00:30,000 --> 00:00:34,000
+let's create a new folder called hooks,
+
+9
+00:00:34,000 --> 00:00:38,000
+here we add a new file called use
+
+10
+00:00:38,000 --> 00:00:42,000
+todoes.ts. In this file, first we define
+
+11
+00:00:42,000 --> 00:00:46,000
+a function called use todoes, and then export
+
+12
+00:00:46,000 --> 00:00:50,000
+it as a default object. Now,
+
+13
+00:00:50,000 --> 00:00:54,000
+back to our component, first let's grab this function
+
+14
+00:00:54,000 --> 00:00:58,000
+and move it to our hook,
+
+15
+00:00:58,000 --> 00:01:02,000
+now, here we need to import axis, as well as
+
+16
+00:01:02,000 --> 00:01:06,000
+the todo interface. Now I want to move that interface into this module,
+
+17
+00:01:06,000 --> 00:01:10,000
+so, back to our component, let's grab it from here
+
+18
+00:01:10,000 --> 00:01:14,000
+and move it over.
+
+19
+00:01:14,000 --> 00:01:18,000
+Okay, let's save the changes,
+
+20
+00:01:18,000 --> 00:01:22,000
+so our code is reformatted, good. Now, in this hook we should
+
+21
+00:01:22,000 --> 00:01:26,000
+call the query hook and return a query object, so
+
+22
+00:01:26,000 --> 00:01:30,000
+back to our component, let's clean up our code,
+
+23
+00:01:30,000 --> 00:01:34,000
+alright, this is where we call the query hook, so let's grab
+
+24
+00:01:34,000 --> 00:01:38,000
+this piece of code and move it
+
+25
+00:01:38,000 --> 00:01:42,000
+to our new hook. So here we add a return statement
+
+26
+00:01:42,000 --> 00:01:46,000
+and return this query object straight away.
+
+27
+00:01:46,000 --> 00:01:50,000
+Now let's import use query from tanstack slash
+
+28
+00:01:50,000 --> 00:01:54,000
+react query, good, we are done with this hook, so now
+
+29
+00:01:54,000 --> 00:01:58,000
+back to our component, on the top, to get todoes,
+
+30
+00:01:58,000 --> 00:02:02,000
+all we have to do is call use todoes, as simple
+
+31
+00:02:02,000 --> 00:02:06,000
+as that. Now our component has a single responsibility,
+
+32
+00:02:06,000 --> 00:02:10,000
+is purely concerned with markup, it doesn't know how the data
+
+33
+00:02:10,000 --> 00:02:14,000
+should be fetched. If somewhere else we have another component that
+
+34
+00:02:14,000 --> 00:02:18,000
+requires the list of todoes, in that component we can use our new
+
+35
+00:02:18,000 --> 00:02:22,000
+hook. So we're done here, the last step is remove
+
+36
+00:02:22,000 --> 00:02:26,000
+these unnecessary import statements.
+
+37
+00:02:26,000 --> 00:02:30,000
+So now our component is much simpler and easier to maintain and debug.
+

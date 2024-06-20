@@ -1,0 +1,316 @@
+1
+00:00:00,000 --> 00:00:04,000
+Our queries have a few default settings
+
+2
+00:00:04,000 --> 00:00:08,000
+that work in most situations, but we can always customize them
+
+3
+00:00:08,000 --> 00:00:12,000
+per query or globally. So let's go to main.tsx
+
+4
+00:00:12,000 --> 00:00:16,000
+on this line where we create a new query client
+
+5
+00:00:16,000 --> 00:00:20,000
+we can pass a configuration object, here we set default options
+
+6
+00:00:20,000 --> 00:00:24,000
+to an object, and in this object we set
+
+7
+00:00:24,000 --> 00:00:28,000
+queries to an object. Now in this object
+
+8
+00:00:28,000 --> 00:00:32,000
+we can override the default settings for our queries globally.
+
+9
+00:00:32,000 --> 00:00:36,000
+Now the first setting we're going to look at is retry which has
+
+10
+00:00:36,000 --> 00:00:40,000
+the default value of 3, and that means if a query fails
+
+11
+00:00:40,000 --> 00:00:44,000
+react query will retry 3 more times. Let me show you how this works.
+
+12
+00:00:44,000 --> 00:00:48,000
+So let's go to use to do's and put an x
+
+13
+00:00:48,000 --> 00:00:52,000
+here in the url. Now back in the browser let's open up
+
+14
+00:00:52,000 --> 00:00:56,000
+chrome dev tools and look at the network tab. So look
+
+15
+00:00:56,000 --> 00:01:00,000
+this is our initial request and right after that we have
+
+16
+00:01:00,000 --> 00:01:04,000
+3 more retries. Now if the default setting doesn't work for your application
+
+17
+00:01:04,000 --> 00:01:08,000
+you can always override it. Now let's remove the x from the url
+
+18
+00:01:08,000 --> 00:01:12,000
+good, back to our main file. The next setting
+
+19
+00:01:12,000 --> 00:01:16,000
+we're going to look at is cache time which has the default value
+
+20
+00:01:16,000 --> 00:01:20,000
+of 300,000 milliseconds or 5 minutes.
+
+21
+00:01:20,000 --> 00:01:24,000
+And that means if a query has no observer meaning
+
+22
+00:01:24,000 --> 00:01:28,000
+no component is using that query, that query is considered
+
+23
+00:01:28,000 --> 00:01:32,000
+inactive. Now the result of inactive queries is removed
+
+24
+00:01:32,000 --> 00:01:36,000
+from the cache after 5 minutes. This is called garbage collection.
+
+25
+00:01:36,000 --> 00:01:40,000
+I think the default value makes sense for a lot of applications but again
+
+26
+00:01:40,000 --> 00:01:44,000
+you can always customize this depending on your requirements.
+
+27
+00:01:44,000 --> 00:01:48,000
+Now the next setting we're going to look at is stale time which specifies
+
+28
+00:01:48,000 --> 00:01:52,000
+how long the data is considered fresh. Now this has
+
+29
+00:01:52,000 --> 00:01:56,000
+the default value of 0 which means the moment we get a piece of data
+
+30
+00:01:56,000 --> 00:02:00,000
+is treated as alt. So the next time we need the same
+
+31
+00:02:00,000 --> 00:02:04,000
+piece of data, react query will re-fetch fresh data from the backend.
+
+32
+00:02:04,000 --> 00:02:08,000
+To simulate this, let's change it to 10 seconds, so 10
+
+33
+00:02:08,000 --> 00:02:12,000
+times 1000, that is 10 seconds.
+
+34
+00:02:12,000 --> 00:02:16,000
+Now back to the browser, let's open dev tools.
+
+35
+00:02:16,000 --> 00:02:20,000
+So here we have a green box which means our todos are fresh, but after
+
+36
+00:02:20,000 --> 00:02:24,000
+10 seconds they'll become stale. There you go. Now
+
+37
+00:02:24,000 --> 00:02:28,000
+this one that we have here represents the number of observers or components
+
+38
+00:02:28,000 --> 00:02:32,000
+using this query. Now one of the beautiful things about
+
+39
+00:02:32,000 --> 00:02:36,000
+react query is that it automatically refreshes stale data under
+
+40
+00:02:36,000 --> 00:02:40,000
+three situations, when the network is reconnected
+
+41
+00:02:40,000 --> 00:02:44,000
+or when a component is mounted or when the window is
+
+42
+00:02:44,000 --> 00:02:48,000
+refocused. Let me show you how this works. So if I open a new tab
+
+43
+00:02:48,000 --> 00:02:52,000
+here and then come back to this tab, react query will
+
+44
+00:02:52,000 --> 00:02:56,000
+re-fetch our query, so take a look. Alright,
+
+45
+00:02:56,000 --> 00:03:00,000
+now we have fresh data. This is a common source of confusion for a lot of people.
+
+46
+00:03:00,000 --> 00:03:04,000
+They think their application or react query has a bug
+
+47
+00:03:04,000 --> 00:03:08,000
+because the same query is fetched multiple times, especially with the
+
+48
+00:03:08,000 --> 00:03:12,000
+default stale time of 0. But this is by design, you can always
+
+49
+00:03:12,000 --> 00:03:16,000
+disable this feature if you want to. So back to our query client,
+
+50
+00:03:16,000 --> 00:03:20,000
+here we have three settings for re-fetching data.
+
+51
+00:03:20,000 --> 00:03:24,000
+We have re-fetch on window focus,
+
+52
+00:03:24,000 --> 00:03:28,000
+which has the default value of true, we can change it to false. We also
+
+53
+00:03:28,000 --> 00:03:32,000
+have re-fetch on reconnect, so if the client goes
+
+54
+00:03:32,000 --> 00:03:36,000
+offline and then comes back online, react query will re-fetch our
+
+55
+00:03:36,000 --> 00:03:40,000
+queries. Now if you don't like this behavior you can always disable it.
+
+56
+00:03:40,000 --> 00:03:44,000
+We also have re-fetch on mount, which has the default value of
+
+57
+00:03:44,000 --> 00:03:48,000
+true, but we can change it to false. If this is set to true, that means
+
+58
+00:03:48,000 --> 00:03:52,000
+our queries should be fetched when a component mounts for the first time.
+
+59
+00:03:52,000 --> 00:03:56,000
+I think this setting makes sense for pretty much all applications, but
+
+60
+00:03:56,000 --> 00:04:00,000
+maybe in your application you don't want this behavior, so you can disable it.
+
+61
+00:04:00,000 --> 00:04:04,000
+Now, one thing you need to know about re-fetching is that if the data is
+
+62
+00:04:04,000 --> 00:04:08,000
+stale, react query will attempt to fetch new data from the backend,
+
+63
+00:04:08,000 --> 00:04:12,000
+while at the same time returning the stale data from the cache to the application.
+
+64
+00:04:12,000 --> 00:04:16,000
+With this approach we can show the user the cache data immediately,
+
+65
+00:04:16,000 --> 00:04:20,000
+while also getting the latest data in the background. Once we have the updated
+
+66
+00:04:20,000 --> 00:04:24,000
+data, react query updates the cache and notifies our component
+
+67
+00:04:24,000 --> 00:04:28,000
+that new data is available. Our component will then
+
+68
+00:04:28,000 --> 00:04:32,000
+re-render with fresh data. So this is how we can
+
+69
+00:04:32,000 --> 00:04:36,000
+overwrite the default settings for our queries. Now, most of the time we don't
+
+70
+00:04:36,000 --> 00:04:40,000
+really need to change these settings, I think the default values work well for most
+
+71
+00:04:40,000 --> 00:04:44,000
+cases, the only setting that we often need to customize is
+
+72
+00:04:44,000 --> 00:04:48,000
+the stale time. And this is dependent on our queries,
+
+73
+00:04:48,000 --> 00:04:52,000
+some pieces of data get updated less frequently, so we should give them
+
+74
+00:04:52,000 --> 00:04:56,000
+a higher stale time. So going forward I'm going to remove
+
+75
+00:04:56,000 --> 00:05:00,000
+all these default settings globally,
+
+76
+00:05:00,000 --> 00:05:04,000
+instead we're going to configure stale time per query.
+
+77
+00:05:04,000 --> 00:05:08,000
+So, let's go to our todos hook, this is where we call the
+
+78
+00:05:08,000 --> 00:05:12,000
+query hook, here we can overwrite all the settings you learn about, so we
+
+79
+00:05:12,000 --> 00:05:16,000
+can set stale time to 10 seconds.
+

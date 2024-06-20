@@ -1,0 +1,364 @@
+1
+00:00:00,000 --> 00:00:04,000
+Now let me show you how to implement
+
+2
+00:00:04,000 --> 00:00:08,000
+pagination with react query. Now for this lesson
+
+3
+00:00:08,000 --> 00:00:12,000
+let's remove filtering by user so we can focus on pagination.
+
+4
+00:00:12,000 --> 00:00:16,000
+So let's remove this line as well as
+
+5
+00:00:16,000 --> 00:00:20,000
+our drop down list. Okay, now
+
+6
+00:00:20,000 --> 00:00:24,000
+our hook expects a user ID, but now we should replace this with
+
+7
+00:00:24,000 --> 00:00:28,000
+the page number and page size. First we should do
+
+8
+00:00:28,000 --> 00:00:32,000
+declare a state variable to keep track of the current page.
+
+9
+00:00:32,000 --> 00:00:36,000
+So use state, we initialize it to one and
+
+10
+00:00:36,000 --> 00:00:40,000
+call it page.
+
+11
+00:00:40,000 --> 00:00:44,000
+Now because the page size doesn't change, we don't need a state variable
+
+12
+00:00:44,000 --> 00:00:48,000
+here, we can declare a local constant. Potentially in the future
+
+13
+00:00:48,000 --> 00:00:52,000
+we can add a drop down list where the user can select the page size.
+
+14
+00:00:52,000 --> 00:00:56,000
+In that case, we need a state variable for tracking the page size.
+
+15
+00:00:56,000 --> 00:01:00,000
+So let's declare a local constant called page
+
+16
+00:01:00,000 --> 00:01:04,000
+size. Now, we don't want to pass multiple values
+
+17
+00:01:04,000 --> 00:01:08,000
+to this hook, that is kind of ugly, because potentially in the future
+
+18
+00:01:08,000 --> 00:01:12,000
+we can have other ways to filter posts, like filtering by user,
+
+19
+00:01:12,000 --> 00:01:16,000
+page, date and so on. So it would be nicer to
+
+20
+00:01:16,000 --> 00:01:20,000
+encapsulate all these values inside a query object.
+
+21
+00:01:20,000 --> 00:01:24,000
+We talked about this concept in the first part of the course, remember?
+
+22
+00:01:24,000 --> 00:01:28,000
+So let's go to this hook, here we define an interface
+
+23
+00:01:28,000 --> 00:01:32,000
+called post query. Now
+
+24
+00:01:32,000 --> 00:01:36,000
+here we add a couple properties, page of type number and
+
+25
+00:01:36,000 --> 00:01:40,000
+page size of type number as well. Next we change
+
+26
+00:01:40,000 --> 00:01:44,000
+the parameter of this hook to query
+
+27
+00:01:44,000 --> 00:01:48,000
+of type post query. Now we should structure our
+
+28
+00:01:48,000 --> 00:01:52,000
+key a little bit differently. We don't need all this ceremony,
+
+29
+00:01:52,000 --> 00:01:56,000
+instead we start with our top level object, and then we add
+
+30
+00:01:56,000 --> 00:02:00,000
+our query. So anytime our query changes, we add query
+
+31
+00:02:00,000 --> 00:02:04,000
+we'll fetch the posts from the backend, okay? So,
+
+32
+00:02:04,000 --> 00:02:08,000
+that is simpler, now we should pass the values in this query object to our backend.
+
+33
+00:02:08,000 --> 00:02:12,000
+So here we need to add two parameters, one is
+
+34
+00:02:12,000 --> 00:02:16,000
+underline start, that is the index of our starting position,
+
+35
+00:02:16,000 --> 00:02:20,000
+we can calculate this by getting query.page with subtracted
+
+36
+00:02:20,000 --> 00:02:24,000
+by one and multiply the result by page
+
+37
+00:02:24,000 --> 00:02:28,000
+size. The second parameter is underline limit, which we set to
+
+38
+00:02:28,000 --> 00:02:32,000
+query.page size. Okay, now
+
+39
+00:02:32,000 --> 00:02:36,000
+back to our component, here we should pass a query object.
+
+40
+00:02:36,000 --> 00:02:40,000
+Now for clarity, this query object has nothing to do with
+
+41
+00:02:40,000 --> 00:02:44,000
+react query, it's a common design pattern. A query object is an object
+
+42
+00:02:44,000 --> 00:02:48,000
+that contains all the values for querying a set of objects, okay?
+
+43
+00:02:48,000 --> 00:02:52,000
+So here we add page and page size,
+
+44
+00:02:52,000 --> 00:02:56,000
+now if you go back to the browser, we only see the first
+
+45
+00:02:56,000 --> 00:03:00,000
+ten to dos. So now we need to add our navigation buttons.
+
+46
+00:03:00,000 --> 00:03:04,000
+Back to our component, right after our list, we add
+
+47
+00:03:04,000 --> 00:03:08,000
+a button with two classes, btn and btn-primary.
+
+48
+00:03:08,000 --> 00:03:12,000
+We call this previous, now this button should
+
+49
+00:03:12,000 --> 00:03:16,000
+be disabled if you are on the first page.
+
+50
+00:03:16,000 --> 00:03:20,000
+Now let's handle the click event,
+
+51
+00:03:20,000 --> 00:03:24,000
+so on click,
+
+52
+00:03:24,000 --> 00:03:28,000
+we set it to a function, and here we call set page
+
+53
+00:03:28,000 --> 00:03:32,000
+with page minus one. Now we need a similar button
+
+54
+00:03:32,000 --> 00:03:36,000
+to go to the next page. Now the next button should be disabled
+
+55
+00:03:36,000 --> 00:03:40,000
+if you are on the last page, but unfortunately with json placeholder
+
+56
+00:03:40,000 --> 00:03:44,000
+we cannot tell when we are on the last page, because json placeholder
+
+57
+00:03:44,000 --> 00:03:48,000
+doesn't give us the total number of records ahead of time.
+
+58
+00:03:48,000 --> 00:03:52,000
+So we have to leave this out for now, here when the button is clicked we should
+
+59
+00:03:52,000 --> 00:03:56,000
+increment the page number, the label should be next,
+
+60
+00:03:56,000 --> 00:04:00,000
+let's see what we get. Alright, so on the first page
+
+61
+00:04:00,000 --> 00:04:04,000
+the previous button is disabled, beautiful, now these buttons are so
+
+62
+00:04:04,000 --> 00:04:08,000
+close to our to dos, so let's give them a vertical margin.
+
+63
+00:04:08,000 --> 00:04:12,000
+So that is my
+
+64
+00:04:12,000 --> 00:04:16,000
+dash three. Now take a look,
+
+65
+00:04:16,000 --> 00:04:20,000
+that's better, now the next button is so close to the previous button,
+
+66
+00:04:20,000 --> 00:04:24,000
+so we should give it a left margin. Now in bootstrap
+
+67
+00:04:24,000 --> 00:04:28,000
+4 and earlier, we had a utility class called ml that is short
+
+68
+00:04:28,000 --> 00:04:32,000
+for margin left, but in bootstrap 5 this is changed to ms
+
+69
+00:04:32,000 --> 00:04:36,000
+that is short for margin start. So instead of left and
+
+70
+00:04:36,000 --> 00:04:40,000
+right, now we have start and end. So we give it
+
+71
+00:04:40,000 --> 00:04:44,000
+a margin start of one. That is better,
+
+72
+00:04:44,000 --> 00:04:48,000
+now if we click next, we go to the next page, but there is a tiny
+
+73
+00:04:48,000 --> 00:04:52,000
+problem. Look, the screen jumps up and down as we
+
+74
+00:04:52,000 --> 00:04:56,000
+go in and out of the loading state. Do you see that?
+
+75
+00:04:56,000 --> 00:05:00,000
+The loading state appears up here and the screen jumps up and down.
+
+76
+00:05:00,000 --> 00:05:04,000
+We can improve the user experience by keeping the data on the current page
+
+77
+00:05:04,000 --> 00:05:08,000
+while we are waiting for the new data. When the new data is available
+
+78
+00:05:08,000 --> 00:05:12,000
+we can seamlessly swap the data for the current page. That is very easy to
+
+79
+00:05:12,000 --> 00:05:16,000
+do. Back to our query, here we have another property
+
+80
+00:05:16,000 --> 00:05:20,000
+called keep previous data. If we
+
+81
+00:05:20,000 --> 00:05:24,000
+set this to true, we get a nicer user experience
+
+82
+00:05:24,000 --> 00:05:28,000
+as we go to the next page. Look, there is no
+
+83
+00:05:28,000 --> 00:05:32,000
+jumping up and down, beautiful. So this is how we can implement pagination.
+
+84
+00:05:32,000 --> 00:05:36,000
+Next I'm going to show you how to work with infinite queries.
+
+85
+00:05:36,000 --> 00:05:40,000
+...
+
+86
+00:05:40,000 --> 00:05:44,000
+...
+
+87
+00:05:44,000 --> 00:05:48,000
+...
+
+88
+00:05:48,000 --> 00:05:52,000
+...
+
+89
+00:05:52,000 --> 00:05:56,000
+...
+
+90
+00:05:56,000 --> 00:06:00,000
+...
+
+91
+00:06:00,000 --> 00:06:04,000
+...
+

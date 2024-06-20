@@ -1,0 +1,376 @@
+1
+00:00:00,000 --> 00:00:06,000
+Now
+
+2
+00:00:06,000 --> 00:00:10,000
+let's see how we can fetch hierarchical or nested resources.
+
+3
+00:00:10,000 --> 00:00:14,000
+So we want to add a drop down list up here, populated with the list
+
+4
+00:00:14,000 --> 00:00:18,000
+of users. When we select a user, we should only see the posts
+
+5
+00:00:18,000 --> 00:00:22,000
+by that user, okay? So here in post list
+
+6
+00:00:22,000 --> 00:00:26,000
+component, let's add a select element with a couple classes,
+
+7
+00:00:26,000 --> 00:00:30,000
+form-select, which is one of the bootstrap classes to give this
+
+8
+00:00:30,000 --> 00:00:34,000
+a nice look and feel, and mb-3 to give it
+
+9
+00:00:34,000 --> 00:00:38,000
+a bottom margin. Again, this is another utility class in bootstrap
+
+10
+00:00:38,000 --> 00:00:42,000
+that we covered in the first part of the course. Now, we don't
+
+11
+00:00:42,000 --> 00:00:46,000
+need the name and id attributes, so delete. Now
+
+12
+00:00:46,000 --> 00:00:50,000
+because we have multiple elements, we should wrap them inside a fragment.
+
+13
+00:00:50,000 --> 00:00:54,000
+Good, now,
+
+14
+00:00:54,000 --> 00:00:58,000
+in a real world application, we should render the users dynamically, but
+
+15
+00:00:58,000 --> 00:01:02,000
+that's a distraction from what we are focusing on here, so I want to hardcode
+
+16
+00:01:02,000 --> 00:01:06,000
+a few options for a few users. So let's add an option,
+
+17
+00:01:06,000 --> 00:01:10,000
+the first one is going to be empty, the second one is going to be user one,
+
+18
+00:01:10,000 --> 00:01:14,000
+then we add user two and three,
+
+19
+00:01:14,000 --> 00:01:18,000
+so, here's what we get, it looks good.
+
+20
+00:01:18,000 --> 00:01:22,000
+Now we need to declare a state variable to keep track of the selected user.
+
+21
+00:01:22,000 --> 00:01:26,000
+When the selected user changes, we should filter posts by that user.
+
+22
+00:01:26,000 --> 00:01:30,000
+So, let's use the state hook
+
+23
+00:01:30,000 --> 00:01:34,000
+to declare a state variable of type number,
+
+24
+00:01:34,000 --> 00:01:38,000
+and call it user id.
+
+25
+00:01:38,000 --> 00:01:42,000
+Now, we should handle
+
+26
+00:01:42,000 --> 00:01:46,000
+the change event of the select element, so
+
+27
+00:01:46,000 --> 00:01:50,000
+here we set unchange to a function that takes an event object,
+
+28
+00:01:50,000 --> 00:01:54,000
+and here we set the selected user to event
+
+29
+00:01:54,000 --> 00:01:58,000
+dot target dot value. Now here we have a compilation error because
+
+30
+00:01:58,000 --> 00:02:02,000
+our values are strings as you can see here, but our user id
+
+31
+00:02:02,000 --> 00:02:06,000
+is a number, so we need to parse the value as an integer.
+
+32
+00:02:06,000 --> 00:02:10,000
+Now we should also set the value prop
+
+33
+00:02:10,000 --> 00:02:14,000
+to the selected user, so in the next render, the right option gets selected.
+
+34
+00:02:14,000 --> 00:02:18,000
+Now the last part, filtering, so in this component
+
+35
+00:02:18,000 --> 00:02:22,000
+we are using the posts hook. Now this hook currently doesn't have any
+
+36
+00:02:22,000 --> 00:02:26,000
+parameters, but we should add the user id as a parameter so we can filter
+
+37
+00:02:26,000 --> 00:02:30,000
+posts by that user. So let's pass user id
+
+38
+00:02:30,000 --> 00:02:34,000
+as an argument here, and then add it as a parameter
+
+39
+00:02:34,000 --> 00:02:38,000
+to this hook, so this is a number or
+
+40
+00:02:38,000 --> 00:02:42,000
+undefined, because initially no user is selected. Now,
+
+41
+00:02:42,000 --> 00:02:46,000
+so far we have had simple keys with a single value, but now that we are
+
+42
+00:02:46,000 --> 00:02:50,000
+dealing with hierarchical data, we should structure our key a little bit differently.
+
+43
+00:02:50,000 --> 00:02:54,000
+So we should follow a hierarchical structure that represents
+
+44
+00:02:54,000 --> 00:02:58,000
+the relationship between our objects. We start with the
+
+45
+00:02:58,000 --> 00:03:02,000
+top level object, which is users, then we add user id
+
+46
+00:03:02,000 --> 00:03:06,000
+followed by posts. This is the same pattern we follow
+
+47
+00:03:06,000 --> 00:03:10,000
+when designing URLs for our APIs. For example, if you want to build
+
+48
+00:03:10,000 --> 00:03:14,000
+an API for fetching the posts by user, we would
+
+49
+00:03:14,000 --> 00:03:18,000
+add an endpoint like this, slash users, slash one, which is
+
+50
+00:03:18,000 --> 00:03:22,000
+the user id followed by posts, right? We are following the same pattern
+
+51
+00:03:22,000 --> 00:03:26,000
+here. So as we go from left to right, the data gets
+
+52
+00:03:26,000 --> 00:03:30,000
+more specific. Now here is the thing, the user id is a parameter
+
+53
+00:03:30,000 --> 00:03:34,000
+for this query. Every time the value of user id changes,
+
+54
+00:03:34,000 --> 00:03:38,000
+react query will fetch the posts for that user from the backend. So this
+
+55
+00:03:38,000 --> 00:03:42,000
+is very similar to the dependency array of the effect hook.
+
+56
+00:03:42,000 --> 00:03:46,000
+Anytime any of the dependencies changes, the effect gets re-executed, right?
+
+57
+00:03:46,000 --> 00:03:50,000
+We have the same concept here. So anytime the user id changes,
+
+58
+00:03:50,000 --> 00:03:54,000
+our query will get re-executed. Now the final part is
+
+59
+00:03:54,000 --> 00:03:58,000
+passing the user id to the backend. Now, json placeholder
+
+60
+00:03:58,000 --> 00:04:02,000
+supports filtering by query strings, so if you pass something
+
+61
+00:04:02,000 --> 00:04:06,000
+like user id equals some value, we'll get the posts
+
+62
+00:04:06,000 --> 00:04:10,000
+for that user. But this is the ugly way of doing this. A nice array
+
+63
+00:04:10,000 --> 00:04:14,000
+is to pass an object here, here we set params to an object,
+
+64
+00:04:14,000 --> 00:04:18,000
+and in this object we add all the query string parameters, in this case
+
+65
+00:04:18,000 --> 00:04:22,000
+user id. As simple as that. Let's test our implementation.
+
+66
+00:04:22,000 --> 00:04:26,000
+So, back in the browser, initially no user is selected,
+
+67
+00:04:26,000 --> 00:04:30,000
+so we see all the posts, but if you select a user,
+
+68
+00:04:30,000 --> 00:04:34,000
+we only see the posts by that user, lovely. Now, let's look
+
+69
+00:04:34,000 --> 00:04:38,000
+at our cache in dev tools. So currently we have two entries here,
+
+70
+00:04:38,000 --> 00:04:42,000
+posts by user 2, and posts by all users.
+
+71
+00:04:42,000 --> 00:04:46,000
+Now the first query is fresh and active with one observer,
+
+72
+00:04:46,000 --> 00:04:50,000
+but the second query is inactive because here we have no
+
+73
+00:04:50,000 --> 00:04:54,000
+observers. However, if we change the user
+
+74
+00:04:54,000 --> 00:04:58,000
+to the first option, the second query becomes active again.
+
+75
+00:04:58,000 --> 00:05:02,000
+Okay, now I don't like how this key is structured, this null in
+
+76
+00:05:02,000 --> 00:05:06,000
+the middle looks kind of ugly. If you want to represent all the posts,
+
+77
+00:05:06,000 --> 00:05:10,000
+it would be nicer to have an array with a single value, that is posts,
+
+78
+00:05:10,000 --> 00:05:14,000
+but this is very easy to fix. So, back to our project, when setting the key,
+
+79
+00:05:14,000 --> 00:05:18,000
+we can type an expression and say, if user id is truthy,
+
+80
+00:05:18,000 --> 00:05:22,000
+the key should be an array with three values, otherwise
+
+81
+00:05:22,000 --> 00:05:26,000
+it should be an array with posts. Now, back in the browser,
+
+82
+00:05:26,000 --> 00:05:30,000
+refresh, so initially we have all the posts stored here,
+
+83
+00:05:30,000 --> 00:05:34,000
+lovely, but if we select a user, now we have
+
+84
+00:05:34,000 --> 00:05:38,000
+the posts for that user, perfect. Now one last thing before we finish this lesson,
+
+85
+00:05:38,000 --> 00:05:42,000
+currently we have the posts for user 2 in the cache, so if we select
+
+86
+00:05:42,000 --> 00:05:46,000
+user 1 or user 3, we will see our loading indicator for a
+
+87
+00:05:46,000 --> 00:05:50,000
+fraction of a second, take a look. So, user 1,
+
+88
+00:05:50,000 --> 00:05:54,000
+that was our loading indicator, user 3,
+
+89
+00:05:54,000 --> 00:05:58,000
+again we saw our loading indicator. However, now that we have the posts
+
+90
+00:05:58,000 --> 00:06:02,000
+for all these users in our cache, the next time we select the user,
+
+91
+00:06:02,000 --> 00:06:06,000
+the page gets updated instantly, take a look. So, let's go to
+
+92
+00:06:06,000 --> 00:06:10,000
+user 2, user 1, beautiful, we don't see a
+
+93
+00:06:10,000 --> 00:06:14,000
+loading indicator, because the data comes from the cache. This is one of the
+
+94
+00:06:14,000 --> 00:06:18,000
+benefits of using React query.
+

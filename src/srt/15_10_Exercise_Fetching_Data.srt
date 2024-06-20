@@ -1,0 +1,208 @@
+1
+00:00:00,000 --> 00:00:06,000
+Alright,
+
+2
+00:00:06,000 --> 00:00:10,000
+here's an exercise for you. In this project in the react query folder
+
+3
+00:00:10,000 --> 00:00:14,000
+we have another component called post list. In this
+
+4
+00:00:14,000 --> 00:00:18,000
+component we are using the state and effect hooks to retrieve
+
+5
+00:00:18,000 --> 00:00:22,000
+posts from the backend. I want you to use what you have learned in the past
+
+6
+00:00:22,000 --> 00:00:26,000
+few lessons and create a custom hook for fetching the posts
+
+7
+00:00:26,000 --> 00:00:30,000
+using react query. Spend a few minutes on this and then come back
+
+8
+00:00:30,000 --> 00:00:34,000
+see my solution.
+
+9
+00:00:34,000 --> 00:00:38,000
+Alright, this is pretty straightforward.
+
+10
+00:00:38,000 --> 00:00:42,000
+Here in the hooks folder we add a new file called
+
+11
+00:00:42,000 --> 00:00:46,000
+use posts. Next we create a
+
+12
+00:00:46,000 --> 00:00:50,000
+function with the same name. Here we call use query
+
+13
+00:00:50,000 --> 00:00:54,000
+and give it an object with two properties, query key
+
+14
+00:00:54,000 --> 00:00:58,000
+which is posts and query function
+
+15
+00:00:58,000 --> 00:01:02,000
+and here we should borrow some code from our component
+
+16
+00:01:02,000 --> 00:01:06,000
+so I'm going to grab these three lines.
+
+17
+00:01:06,000 --> 00:01:10,000
+Let's move them right here. Now we should
+
+18
+00:01:10,000 --> 00:01:14,000
+import axis, good. Now we don't care about
+
+19
+00:01:14,000 --> 00:01:18,000
+setting the posts instead we just want to return response
+
+20
+00:01:18,000 --> 00:01:22,000
+the data. So this is our query function.
+
+21
+00:01:22,000 --> 00:01:26,000
+Now we can optionally set stale time
+
+22
+00:01:26,000 --> 00:01:30,000
+to a value larger than zero, let's say one minute.
+
+23
+00:01:30,000 --> 00:01:34,000
+So one times sixty times a thousand.
+
+24
+00:01:34,000 --> 00:01:38,000
+I would like to add a comment like one minute, that's better. Now at
+
+25
+00:01:38,000 --> 00:01:42,000
+the end we should export our hook.
+
+26
+00:01:42,000 --> 00:01:46,000
+Now back to our component. We don't need the
+
+27
+00:01:46,000 --> 00:01:50,000
+state and effect hooks anymore, delete. Instead we should call
+
+28
+00:01:50,000 --> 00:01:54,000
+use posts. We get a query object, we destructure
+
+29
+00:01:54,000 --> 00:01:58,000
+it and grab data, error and ease loading
+
+30
+00:01:58,000 --> 00:02:02,000
+properties. Now here we have a compilation error saying
+
+31
+00:02:02,000 --> 00:02:06,000
+type is not assignable to type react node. So react
+
+32
+00:02:06,000 --> 00:02:10,000
+doesn't know how to render this error message. To fix this we go
+
+33
+00:02:10,000 --> 00:02:14,000
+back to our hook and supply generic type arguments
+
+34
+00:02:14,000 --> 00:02:18,000
+when calling the query hook. So we should expect to get an
+
+35
+00:02:18,000 --> 00:02:22,000
+array of posts and an error object in case
+
+36
+00:02:22,000 --> 00:02:26,000
+something goes wrong. Now here we need to move the post interface
+
+37
+00:02:26,000 --> 00:02:30,000
+from our component file to this new file.
+
+38
+00:02:30,000 --> 00:02:34,000
+So let's grab it from here and move it
+
+39
+00:02:34,000 --> 00:02:38,000
+right here, good. We are done with this hook.
+
+40
+00:02:38,000 --> 00:02:42,000
+Now back to our component. If you have an error
+
+41
+00:02:42,000 --> 00:02:46,000
+we should render error.message. Now down here
+
+42
+00:02:46,000 --> 00:02:50,000
+we don't have posts anymore instead we should work with data.
+
+43
+00:02:50,000 --> 00:02:54,000
+Now because data can be undefined here we should use optional
+
+44
+00:02:54,000 --> 00:02:58,000
+chaining. That's all you had to do. Now let's remove
+
+45
+00:02:58,000 --> 00:03:02,000
+the unused imports on the top.
+
+46
+00:03:02,000 --> 00:03:06,000
+Finally let's test this to make sure everything is working. So let's go to our app
+
+47
+00:03:06,000 --> 00:03:10,000
+component and replace to do list with
+
+48
+00:03:10,000 --> 00:03:14,000
+post list. Back in the browser
+
+49
+00:03:14,000 --> 00:03:18,000
+here's the list of our posts. Now the last thing we need to add here
+
+50
+00:03:18,000 --> 00:03:22,000
+is our loading message. So here we can add another
+
+51
+00:03:22,000 --> 00:03:26,000
+if statement, if it's loading then we return a paragraph and say
+
+52
+00:03:26,000 --> 00:03:30,000
+loading.
+
